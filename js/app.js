@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    chrome.windows.getCurrent(function(win) {
-        chrome.tabs.getAllInWindow(win.id, function(tabsArray) {
-            console.log(tabsArray);
+    chrome.windows.getCurrent(function(currWindow) {
+        chrome.tabs.getAllInWindow(currWindow.id, function(tabs) {
+            console.log(tabs);
         });
     });
 });
