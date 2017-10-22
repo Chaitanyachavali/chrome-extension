@@ -1,0 +1,138 @@
+.topnav {
+    background-color: #551A8B;
+    overflow: hidden;
+	font-family: Raleway, sans-serif;
+	box-shadow:  0 0 10px  rgba(0,0,0,0.5);
+	position: fixed;
+	color: white;
+	width: 100%;     
+	padding: 20px;
+	text-align:left;
+    font-size: 24px;
+	font-weight: 500;
+	top:0;
+	left:0;
+	margin-bottom:20px;
+	z-index:2;
+}
+.close{
+    
+    color: #888;
+	float:left;
+    font-weight: bold;
+    padding: 0px 0px 10px 5px;
+    font-size: 25px;
+    cursor: pointer;
+}
+ .close:hover {
+    color: #000;
+}
+#sidenav {
+    width:20%;
+    height:100%;
+    position:fixed;
+    margin-top:-20px;
+    right:0;
+	background-color: #f9f9f9;
+    border-right: none;
+	box-shadow:  0 0 10px  rgba(0,0,0,0.2);
+}
+ .sidenav:hover {
+    color: #000;
+}
+.body{
+ background-color: #551A8B;
+	margin-top:90px;
+	margin-left:45px;
+	width:78%;
+	height:100%;
+	background-color: #fff;	
+	
+}
+.border{
+    box-sizing: border-box;
+	 clip: rect(0px,60px,200px,0px);
+	  position: absolute;
+}
+.container {
+    overflow:hidden;
+    height: 60px;
+}
+
+.one {
+    position: relative;
+    padding: 0px 0px 10px 5px;
+	margin-top: 4px;
+    z-index: 1;
+	font-family: Raleway, sans-serif;
+	font-size: 24px;
+	width:85%;
+	border-bottom: solid 1px;
+}
+
+.two {
+    position: relative;
+    
+	width:80%;
+	padding: 10px 0px 25px 60px;
+    z-index: -1;
+    -webkit-transition: top 0.1s;
+    -moz-transition: top 0.1s;
+    -o-transition: top 0.1s;
+    transition: top 1s;
+	border-bottom: solid 1px;
+}
+.twoc{
+position:relative;
+}
+.toggle{
+margin-top: 3px;
+margin-bottom: -5px;
+transform: rotate(0deg);
+}
+.links{
+  margin-bottom:31px;
+}
+.links .img{
+ float:left;
+}
+.links .text a{
+float:left;
+margin-left:8px;
+font-family: Raleway, sans-serif;
+text-decoration:  none;
+}
+
+.options{
+  float:right;
+  font-family: Raleway, sans-serif;
+  font-size: 18px;
+  color:gray;
+  margin-top:8px;
+  margin-left:5px;
+  margin-right:15px;
+ }
+ 
+ #rcorners2 {
+    border-radius: 25px;
+    border: 2px dotted #73AD21;
+    padding: 6px 16px; 
+    height:3;
+	font-size: 12px;
+	float:left;
+	margin-top: -4px;
+	margin-right:15px;
+	text-align:center;
+}
+ #rcorners3 {
+    border-radius: 25px;
+    border: 2px solid #ff0000;
+    padding: 6px 16px; 
+    height:3;
+	font-size: 12px;
+	float:left;
+	margin-top: -4px;
+	margin-right:15px;
+	text-align:center;
+}
+ 
