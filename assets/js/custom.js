@@ -10,9 +10,9 @@ $(".toggle").on('click', function(){
     else
     {
         clicked=true;
-       $(".toggle").css({'transform': 'rotate(180deg)'});
-	   $(".two").css({"z-index":1});
-	   $(".one").css({"border-bottom":"none "});
+        $(".toggle").css({'transform': 'rotate(180deg)'});
+	    $(".two").css({"z-index":1});
+	    $(".one").css({"border-bottom":"none "});
 		
     }
 });
