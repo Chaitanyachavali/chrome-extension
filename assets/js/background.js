@@ -6,8 +6,8 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
-        title: 'Display MyTab',
-        id: 'displayMyTab',
+        title: 'Open MyTab',
+        id: 'openMyTab',
         contexts: ['all'],
     });
     chrome.contextMenus.create({
@@ -17,7 +17,6 @@ chrome.runtime.onInstalled.addListener(function() {
     });
     chrome.contextMenus.create({
     	type: 'separator',
-        title: 'separator',
         id: 'division1',
         contexts: ['all'],
     });
@@ -43,7 +42,6 @@ chrome.runtime.onInstalled.addListener(function() {
     });
     chrome.contextMenus.create({
     	type: 'separator',
-        title: 'separator',
         id: 'division2',
         contexts: ['all'],
     });
@@ -59,18 +57,17 @@ chrome.runtime.onInstalled.addListener(function() {
     });
     chrome.contextMenus.create({
     	type: 'separator',
-        title: 'separator',
         id: 'division3',
         contexts: ['all'],
     });
     chrome.contextMenus.create({
+    	type: 'checkbox',
         title: 'Exclude this domain from MyTab',
         id: 'exludeThis',
         contexts: ['all'],
     });
     chrome.contextMenus.create({
     	type: 'separator',
-        title: 'separator',
         id: 'division4',
         contexts: ['all'],
     });
@@ -84,6 +81,25 @@ chrome.runtime.onInstalled.addListener(function() {
         id: 'help',
         contexts: ['all'],
     });
+});
+function getHostName(url) {
+	var hostname;
+    if (url.indexOf("://") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+    hostname = hostname.split(':')[0];
+    hostname = hostname.split('?')[0];
+    return hostname;
+}
+chrome.tabs.onActivated.addListener(function() {
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function(tabs) {
+		chrome.contextMenus.update('exludeThis', {
+			title: 'Exclude ' + getHostName(tabs[0].url) + ' from MyTab'
+		});
+	});
 });
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     if (info.menuItemId === "displayMyTab") {
