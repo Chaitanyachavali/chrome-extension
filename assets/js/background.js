@@ -61,7 +61,6 @@ chrome.runtime.onInstalled.addListener(function() {
         contexts: ['all'],
     });
     chrome.contextMenus.create({
-    	type: 'checkbox',
         title: 'Exclude this domain from MyTab',
         id: 'exludeThis',
         contexts: ['all'],
@@ -96,12 +95,51 @@ function getHostName(url) {
 }
 chrome.tabs.onActivated.addListener(function() {
 	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function(tabs) {
+		var selfExtensionPage = true;
+		if(tabs[0].url === 'chrome-extension://dcdhcoieokpmabhcajjoeommfjaendll/mytab.html') {selfExtensionPage = false;}
+		chrome.contextMenus.update('onlyThisTab', {
+			enabled: selfExtensionPage
+		});
+		chrome.contextMenus.update('openMyTab', {
+			enabled: selfExtensionPage
+		});
+		chrome.contextMenus.update('exludeThis', {
+			enabled: selfExtensionPage
+		});
 		chrome.contextMenus.update('exludeThis', {
 			title: 'Exclude ' + getHostName(tabs[0].url) + ' from MyTab'
+		});
+		chrome.windows.getCurrent(function(currWindow) {
+	        chrome.tabs.getAllInWindow(currWindow.id, function(allTabs) {
+	        	var rightTabs = true;
+	        	var leftTabs = true;
+	            if(allTabs[0].url === tabs[0].url) {rightTabs = false;}
+	            if(allTabs[allTabs.length - 1].url === tabs[0].url) {leftTabs = false;}
+	            chrome.contextMenus.update('fromRightTab', {
+	            	enabled: rightTabs
+	            });
+	            chrome.contextMenus.update('fromLeftTab', {
+	            	enabled: leftTabs
+	            });
+	        });
+	    });
+	});
+	chrome.windows.getAll(function(windows) {
+		var windowValue = true;
+		if(windows.length <= 1) {windowValue = false;}
+		chrome.contextMenus.update('allWindows', {
+			enabled: windowValue
+		});
+		chrome.contextMenus.update('allWindowsAsGroups', {
+			enabled: windowValue
 		});
 	});
 });
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    if (info.menuItemId === "displayMyTab") {
+    if (info.menuItemId === "openMyTab") {
+    	chrome.tabs.create({
+	        'url': chrome.extension.getURL('mytab.html'),
+	        'active': true
+	    });
     }
 });
