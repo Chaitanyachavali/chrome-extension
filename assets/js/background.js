@@ -5,8 +5,17 @@ function adjustVariable() {
 		localStorage.setItem("chLinkClasses", chLinkClasses);
 	}
 }
+function makeClassGroup(tabs) {
+	// Code Here
+}
 function sendAllTabs() {
 	adjustVariable();
+	var chLinkClasses = JSON.parse(localStorage.getItem("chLinkClasses"));
+	chrome.windows.getCurrent(function(currWindow) {
+        chrome.tabs.getAllInWindow(currWindow.id, function(tabs) {
+            makeClassGroup(tabs);
+        });
+    });
 }
 chrome.browserAction.onClicked.addListener(function(tab) {
 	sendAllTabs();
