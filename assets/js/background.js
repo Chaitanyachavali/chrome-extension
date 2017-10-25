@@ -5,15 +5,57 @@ function adjustVariable() {
 		localStorage.setItem("chLinkClasses", chLinkClasses);
 	}
 }
-function makeClassGroup(tabs) {
-	// Code Here
+function generateClassId() {
+  function get() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return get() + get() + '-' + get() + '-' + get() + '-' +
+    get() + '-' + get() + get() + get();
+}
+function generateLinkId() {
+	var length = 8;
+	var timestamp = +new Date;
+	var _getRandomInt = function( min, max ) {
+		return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+	}
+	var ts = timestamp.toString();
+	var parts = ts.split( "" ).reverse();
+	var id = "";
+	for( var i = 0; i < length; ++i ) {
+		var index = _getRandomInt( 0, parts.length - 1 );
+		id += parts[index];	 
+	}
+	return id.toString();
+}
+function makeClass(tabs) {
+	var classArray = new Array();
+	var tabsLength = tabs.length;
+	for(var i=0; i<tabsLength; i++) {
+		var pushItem = {
+			"id": generateLinkId(),
+			"title": tabs[i].title,
+			"url": tabs[i].url,
+			"favicon": tabs[i].favIconUrl
+		}
+		classArray.push(pushItem);
+	}
+	var pushClass = {
+	  "classId": generateClassId(),
+	  "classCreated": Math.round((new Date()).getTime() / 1000),
+	  "classArray": classArray
+	}
+	return pushClass;
 }
 function sendAllTabs() {
 	adjustVariable();
 	var chLinkClasses = JSON.parse(localStorage.getItem("chLinkClasses"));
 	chrome.windows.getCurrent(function(currWindow) {
         chrome.tabs.getAllInWindow(currWindow.id, function(tabs) {
-            makeClassGroup(tabs);
+            var pushClass = makeClass(tabs);
+            chLinkClasses.LinkClasses.push(pushClass);
+            localStorage.setItem("chLinkClasses", JSON.stringify(chLinkClasses));
         });
     });
 }
