@@ -1,4 +1,15 @@
+function adjustVariable() {
+	if (localStorage.getItem("chLinkClasses") === null) {
+		var createdAt = Math.round((new Date()).getTime() / 1000);
+		var chLinkClasses ='{ "createdAt" : '+createdAt+', "LinkClasses" : []}';
+		localStorage.setItem("chLinkClasses", chLinkClasses);
+	}
+}
+function sendAllTabs() {
+	adjustVariable();
+}
 chrome.browserAction.onClicked.addListener(function(tab) {
+	sendAllTabs();
     chrome.tabs.create({
         'url': chrome.extension.getURL('mytab.html'),
         'active': true
