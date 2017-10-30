@@ -16,14 +16,13 @@ $(".toggle").on('click', function(){
 		
     }
 });
-$('#amount').click(function() {
-    $('#amount').css('display', 'none');
+$('#amount').on('click', function() {
     $('#amount_entry')
         .val($('#amount').text())
         .css('display', '')
         .focus();
 });
-$('#amount_entry').blur(function() {
+$('#amount_entry').on('blur', function() {
     $('#amount_entry').css('display', 'none');
     $('#amount')
         .text($('#amount_entry').val())
